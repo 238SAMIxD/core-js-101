@@ -268,10 +268,12 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-  console.log(arr);
-  throw new Error('Not implemented');
-
-  // return arr.reduce((a, _, i) => [...a, String(a[i]).repeat(i + 1).split(a[i])], []);
+  return arr.reduce((a, item, i) => (
+    a.concat(Array.from(
+      { length: i + 1 },
+      () => item,
+    ))
+  ), []);
 }
 
 
