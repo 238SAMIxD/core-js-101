@@ -289,7 +289,7 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
 function get3TopItems(arr) {
-  return arr.sort((a, b) => a < b).slice(0, 3);
+  return arr.sort((a, b) => (a < b ? 1 : -1)).slice(0, 3);
 }
 
 
@@ -307,7 +307,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  return arr.filter((e) => e > 0).length;
+  return arr.filter((e) => Number.isInteger(e) && e > 0).length;
 }
 
 /**
@@ -325,9 +325,9 @@ function getPositivesCount(arr) {
  */
 function sortDigitNamesByNumericOrder(arr) {
   const dict = [
-    'zero', 'one', 'two', 'three', 'four', 'six', 'seven', 'eight', 'nine', 'ten',
+    'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
   ];
-  return arr.sort((a, b) => dict.indexOf(a) > dict.indexOf(b));
+  return arr.sort((a, b) => (dict.indexOf(a) > dict.indexOf(b) ? 1 : -1));
 }
 
 /**
@@ -423,7 +423,14 @@ function toStringList(arr) {
  *    ]
  */
 function sortCitiesArray(arr) {
-  return arr.sort((a, b) => (a.country > b.country ? true : a.city > b.city));
+  const compare = (a, b) => {
+    if (a.country > b.country) return 1;
+
+    if (a.country === b.country && a.city > b.city) return 1;
+
+    return -1;
+  };
+  return arr.sort(compare);
 }
 
 /**
