@@ -98,12 +98,12 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-  const hours = new Date(date).getUTCHours();
-  const minutes = new Date(date).getUTCMinutes();
-  const degToRad = Math.PI / 180;
-  const hourAngle = ((hours % 12) / 12) * 360 * degToRad;
-  const minAngle = ((minutes % 12) / 60) * 360 * degToRad;
-  return Math.abs(hourAngle - minAngle);
+  const hours = date.getUTCHours() % 12;
+  const minutes = date.getUTCMinutes();
+  const hourAngle = (360 / 12) * (hours + minutes / 60);
+  const minuteAngle = minutes * 6;
+  const angle = Math.abs(hourAngle - minuteAngle);
+  return Math.min(angle, 360 - angle) * (Math.PI / 180);
 }
 
 
