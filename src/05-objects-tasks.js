@@ -52,7 +52,12 @@ function getJSON(obj) {
  *
  */
 function fromJSON(proto, json) {
-  return JSON.parse(json, proto);
+  const obj = JSON.parse(json);
+  const instance = Object.create(proto);
+
+  Object.assign(instance, obj);
+
+  return instance;
 }
 
 
